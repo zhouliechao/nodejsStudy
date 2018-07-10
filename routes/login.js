@@ -41,6 +41,7 @@ router.post("/loginAjax", function (req, res, next) {//登录接口
                         }
                     }
                     req.session.user = result[0].username;
+                    req.session.email = result[0].email;
                 }
             }
             res.json(returnJson);

@@ -10,8 +10,10 @@ var pool = mysql.createPool(config.mysql);
 router.get('/', function (req, res, next) {
     if (req.session.user) {
         res.cookie("username", req.session.user);
+        res.cookie("email", req.session.email);
         res.render('home', {
-            username: req.session.user
+            username: req.session.user,
+            email : req.session.email
         });
     }else{
         res.redirect('/login')

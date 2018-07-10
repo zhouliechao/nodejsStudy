@@ -4,6 +4,10 @@ $(function(){
         return val.replace(/\s/g, "");
     }
 
+    $("#email").val(getCookie("inputEmail"));
+    $("#password").val(getCookie("inputPassword"));
+    $("#remember-password input").attr("checked",true);
+
     $(".login").click(function () {
         var password = delSpace($("#password").val());
         var email = delSpace($("#email").val());
@@ -28,6 +32,13 @@ $(function(){
                     },
                     success: function (res) {
                         if (res.code == 200) {
+                            if ($("#remember-password input").is(":checked")) {
+                                setCookie("inputEmail", email, 365);
+                                setCookie("inputPassword", password, 365);
+                            }else{
+                                document.cookie = "inputEmail=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                                document.cookie = "inputPassword=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                            }
                             location.href = res.data.url;
                         } else {
                             layer.open({
@@ -61,4 +72,23 @@ $(function(){
     $(".toregister").click(function () {
         window.location.href = "/register";
     })
+
+    //设置cookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    //获取cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
 })
