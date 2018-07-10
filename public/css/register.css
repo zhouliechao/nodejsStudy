@@ -1,0 +1,22 @@
+#main {
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.header {
+    margin-bottom: 50px;
+}
+
+.control-label {
+    margin-top: 5px;
+    padding: 0;
+    text-align: right;
+}
+
+.tologin {
+    margin-top: 10px;
+    text-align: right
+}
